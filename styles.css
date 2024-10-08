@@ -1,0 +1,76 @@
+/* Full-screen background */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow-y: scroll; /* Allow scrolling */
+}
+
+/* Make canvas fixed and transparent */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* Keep the canvas behind the content */
+}
+/* Loading text styling */
+#loading {
+    position: absolute;
+    color: white;
+    font-size: 24px;
+    top: 20px;
+    left: 20px;
+    z-index: 10; /* Ensure loading text appears above the canvas */
+}
+
+/* Content container */
+#content {
+    position: relative; /* Allows content to scroll over the canvas */
+    height: 1000vh; /* Makes the page much taller for scrolling */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Align items to the top */
+    padding: 20px;
+    z-index: 10; /* Ensure content is visible over the canvas */
+}
+
+/* Content box styling */
+.box {
+    max-width: 600px;
+    margin: 20px;
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    padding: 20px;
+    border-radius: 5px;
+    opacity: 0; /* Initially hidden */
+    transform: translateX(100%); /* Initially off-screen to the right */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition */
+}
+
+#header {
+    position: fixed; /* Keep it in place when scrolling */
+    top: 10px; /* Adjust distance from the top */
+    left: 10px; /* Adjust distance from the left */
+    z-index: 1000; /* Ensure it's above other elements */
+}
+
+#logo-container {
+    display: flex; /* Align items in a column */
+    flex-direction: column; /* Stack logo and address vertically */
+    align-items: flex-start; /* Align items to the start */
+    color: white; /* Change text color */
+}
+
+#logo {
+    height: 190px; /* Adjust logo size */
+    margin-bottom: 25px; /* Space between logo and address */
+}
+
+#address {
+    font-size: 30px; /* Adjust address font size */
+    text-align: left; /* Align text to the left */
+    color: white;
+    font: arial;
+}
