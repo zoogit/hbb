@@ -6,6 +6,18 @@
     <title>Three.js Project</title>
     <!-- Link to the external CSS file -->
     <link rel="stylesheet" href="./styles.css">
+    
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.148.0/build/three.module.js",
+            "three/examples/jsm/loaders/GLTFLoader.js": "https://cdn.jsdelivr.net/npm/three@0.148.0/examples/jsm/loaders/GLTFLoader.js",
+            "three/examples/jsm/postprocessing/EffectComposer.js": "https://cdn.jsdelivr.net/npm/three@0.148.0/examples/jsm/postprocessing/EffectComposer.js",
+            "three/examples/jsm/postprocessing/RenderPass.js": "https://cdn.jsdelivr.net/npm/three@0.148.0/examples/jsm/postprocessing/RenderPass.js",
+            "three/examples/jsm/postprocessing/UnrealBloomPass.js": "https://cdn.jsdelivr.net/npm/three@0.148.0/examples/jsm/postprocessing/UnrealBloomPass.js"
+        }
+    }
+    </script>
 </head>
 <body>
     <div id="loading">Loading...</div>
@@ -45,6 +57,6 @@
         </div>
     </div>
 
-    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="src/main.js"></script>
 </body>
 </html>
