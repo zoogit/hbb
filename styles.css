@@ -2,7 +2,7 @@
 body {
     margin: 0;
     padding: 0;
-    height: 100vh;
+    min-height: 100vh;
     overflow-y: scroll; /* Allow scrolling */
 }
 
@@ -15,6 +15,7 @@ canvas {
     height: 100vh;
     z-index: -1; /* Keep the canvas behind the content */
 }
+
 /* Loading text styling */
 #loading {
     position: absolute;
@@ -28,7 +29,7 @@ canvas {
 /* Content container */
 #content {
     position: relative; /* Allows content to scroll over the canvas */
-    height: 1000vh; /* Makes the page much taller for scrolling */
+    min-height: 150vh; /* Dynamic height, adjusted for mobile devices */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -72,5 +73,24 @@ canvas {
     font-size: 30px; /* Adjust address font size */
     text-align: left; /* Align text to the left */
     color: white;
-    font: arial;
+    font-family: Arial, sans-serif; /* Ensure proper font family usage */
+}
+
+/* Media Queries for Mobile Devices */
+@media (max-width: 768px) {
+    #content {
+        min-height: 200vh; /* Increase content height for mobile to allow enough scroll space */
+    }
+    
+    #logo {
+        height: 120px; /* Smaller logo for mobile */
+    }
+    
+    #address {
+        font-size: 24px; /* Adjust font size for mobile */
+    }
+
+    .box {
+        max-width: 90vw; /* Adjust box width to fit mobile screens */
+    }
 }
