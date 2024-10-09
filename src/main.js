@@ -1,4 +1,10 @@
+import * as THREE from 'three'; // Import the Three.js library
 
+// Optional: Import additional modules
+import { GLTFLoader } from 'GLTFLoader';
+import { EffectComposer } from 'EffectComposer';
+import { RenderPass } from 'RenderPass';
+import { UnrealBloomPass } from 'UnrealBloomPass';
 
 let scene, camera, renderer, circularLandscape, mixer, rectangle;
 const loadingDiv = document.getElementById('loading');
