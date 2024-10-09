@@ -23,7 +23,7 @@ webpageCanvas.height = 512;
 
 // Render an iframe or webpage content onto the canvas
 const iframe = document.createElement('iframe');
-iframe.src = 'https://handbrewedbeer.com'; // URL of the webpage you want to display
+iframe.src = 'https://www.handbrewedbeer.com'; // URL of the webpage you want to display
 iframe.style.width = '512px';
 iframe.style.height = '512px';
 iframe.style.border = 'none';
