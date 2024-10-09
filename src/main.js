@@ -23,16 +23,26 @@ webpageCanvas.height = 512;
 
 // Render an iframe or webpage content onto the canvas
 const iframe = document.createElement('iframe');
-iframe.src = 'https://www.handbrewedbeer.com'; // URL of the webpage you want to display
+iframe.src = 'https://handbrewedbeer.com'; // URL of the webpage you want to display
 iframe.style.width = '512px';
 iframe.style.height = '512px';
 iframe.style.border = 'none';
 iframe.onload = () => {
-    // Copy iframe content to canvas periodically
+    iframe.contentWindow.postMessage('Request for data', '*');
+};
+
+// Listen for the message from the iframe (postMessage)
+window.addEventListener('message', (event) => {
+    if (event.origin !== 'https://handbrewedbeer.com') {
+        // Ignore messages from other origins
+        return;
+    }
+    
+    // Update the canvas with the received content or data
     setInterval(() => {
         webpageContext.drawImage(iframe, 0, 0, 512, 512);
     }, 1000 / 30); // 30 FPS update
-};
+}, false);
 
 // Add iframe to the document but keep it hidden
 document.body.appendChild(iframe);
@@ -52,7 +62,6 @@ function init() {
         'nightsky3.jpg', // positive z (front)
         'nightsky3.jpg'  // negative z (back)
     ], () => {
-        // On successful load
         console.log('Cubemap loaded successfully');
     }, undefined, (error) => {
         console.error('An error occurred while loading the cubemap:', error);
@@ -70,7 +79,7 @@ function init() {
         starVertices.push(x, y, z);
     }
     starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
-    const starsMaterial = new THREE.PointsMaterial({ color: 0x4CAF50, size: 2 }); // Set initial size
+    const starsMaterial = new THREE.PointsMaterial({ color: 0x4CAF50, size: 2 });
     const starField = new THREE.Points(starsGeometry, starsMaterial);
     scene.add(starField);
 
@@ -124,7 +133,7 @@ function init() {
         loadingDiv.textContent = 'Failed to load 3D model.';
     });
 
-    const rectangleGeometry = new THREE.BoxGeometry(4, 5, 1); // Width: 4, Height: 5, Depth: 1
+    const rectangleGeometry = new THREE.BoxGeometry(4, 5, 1);
     const webpageTexture = new THREE.CanvasTexture(webpageCanvas);
 
     const materials = [
@@ -137,34 +146,32 @@ function init() {
     ];
 
     rectangle = new THREE.Mesh(rectangleGeometry, materials);
-    rectangle.visible = false; // Initially hidden
+    rectangle.visible = false;
     scene.add(rectangle);
 
-    updateRectanglePosition(); // Set initial position based on device
+    updateRectanglePosition();
 
-    animate(starField, starsMaterial); // Pass starField and starsMaterial to animate
+    animate(starField, starsMaterial);
 }
 
 function updateRectanglePosition() {
     isMobile = window.innerWidth < 768;
 
-    // Keep the rectangle's position and scale the same for both mobile and desktop
     if (!isMobile) {
-        rectangle.position.set(0, 0, 5); // Normal position for desktop
+        rectangle.position.set(0, 0, 5);
     }
 }
 
 function animate(starField, starsMaterial) {
-    requestAnimationFrame(() => animate(starField, starsMaterial)); // Pass the arguments
+    requestAnimationFrame(() => animate(starField, starsMaterial));
 
     angle += 0.00;
     camera.position.x = 12 * Math.cos(angle);
     camera.position.z = 10 * Math.sin(angle);
     camera.lookAt(1, 2, 0);
 
-    // Create the pulsating effect for stars
-    const time = Date.now() * 0.002; // Time factor
-    starsMaterial.size = 1 + Math.sin(time) * 0.5; // Pulsate size between 1 and 1.5
+    const time = Date.now() * 0.002;
+    starsMaterial.size = 1 + Math.sin(time) * 0.5;
 
     if (mixer) {
         mixer.update(0.01);
@@ -183,7 +190,6 @@ window.addEventListener('scroll', () => {
         const scrollPosition = window.scrollY;
         circularLandscape.rotation.y = scrollPosition * 0.0005;
 
-        // Define scroll reveal and move thresholds for both mobile and desktop
         const revealPosition = isMobile ? 500 : 1000;
         const moveThreshold = isMobile ? 1500 : 2000;
 
@@ -193,22 +199,20 @@ window.addEventListener('scroll', () => {
             if (scrollPosition <= moveThreshold) {
                 const scrollProgress = (scrollPosition - revealPosition) / (moveThreshold - revealPosition);
 
-                // Apply transformations based on scroll progress without adjusting rectangle's initial position and scale
-                rectangle.position.z = 5 - Math.pow(scrollProgress, 2) * (isMobile ? 8 : 10.5); // Move from z=5 to z=-3
-                rectangle.position.x = 5.65 * scrollProgress; // Move on x-axis (right)
-                rectangle.position.y = 5 * scrollProgress; // Move on y-axis (up)
+                rectangle.position.z = 5 - Math.pow(scrollProgress, 2) * (isMobile ? 8 : 10.5);
+                rectangle.position.x = 5.65 * scrollProgress;
+                rectangle.position.y = 5 * scrollProgress;
 
-                // Change rotation
                 rectangle.rotation.y = 0.5 * scrollProgress;
                 rectangle.rotation.x = 0.75 * scrollProgress;
                 rectangle.rotation.z = 0.65 * scrollProgress;
 
-                hovering = false; // Stop hovering effect
+                hovering = false;
             } else {
-                hovering = true; // Start hovering effect when moving past the threshold
+                hovering = true;
             }
         } else {
-            rectangle.visible = false; // Hide rectangle if scroll position is below reveal threshold
+            rectangle.visible = false;
             hovering = false;
         }
 
@@ -217,7 +221,6 @@ window.addEventListener('scroll', () => {
         if (scrollPosition > returnThreshold) {
             const scrollProgress = (scrollPosition - returnThreshold) / 1000;
 
-            // Move the rectangle back into place when scrolling past the return threshold
             rectangle.position.z = 5 - Math.pow(1 - scrollProgress, 2) * (isMobile ? 5 : 10.5);
             rectangle.position.x = 5.65 * (1 - scrollProgress);
             rectangle.position.y = 5 * (1 - scrollProgress);
@@ -225,5 +228,4 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Initialize everything
 init();
