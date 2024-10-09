@@ -102,7 +102,7 @@ function init() {
     scene.add(directionalLight);
 
     const loader = new GLTFLoader();
-    loader.load('https://zoogit.github.io/your-repo-name/models/hbb6.glb', (gltf) => {
+    loader.load('models/hbb6.glb', function (gltf) => {
         circularLandscape = gltf.scene;
         mixer = new THREE.AnimationMixer(gltf.scene);
         gltf.animations.forEach((clip) => {
