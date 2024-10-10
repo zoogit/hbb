@@ -73,7 +73,6 @@ canvas {
     font-size: 30px; /* Adjust address font size */
     text-align: left; /* Align text to the left */
     color: white;
-    font-family: Arial, sans-serif; /* Ensure proper font family usage */
 }
 
 /* Unique class for the new font */
