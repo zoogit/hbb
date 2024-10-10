@@ -92,11 +92,11 @@ canvas {
 /* Media Queries for Mobile Devices */
 @media (max-width: 768px) {
     #content {
-        min-height: 200vh; /* Increase content height for mobile to allow enough scroll space */
+        min-height: 400vh; /* Increase content height for mobile to allow enough scroll space */
     }
     
     #logo {
-        height: 120px; /* Smaller logo for mobile */
+        height: 60px; /* Smaller logo for mobile */
     }
     
     #address {
