@@ -92,7 +92,7 @@ canvas {
 /* Media Queries for Mobile Devices */
 @media (max-width: 768px) {
     #content {
-        min-height: 400vh; /* Increase content height for mobile to allow enough scroll space */
+        min-height: 800vh; /* Increase content height for mobile to allow enough scroll space */
     }
     
     #logo {
