@@ -77,7 +77,7 @@ canvas {
 
 /* Unique class for the new font */
 .sixtyfour-convergence-custom {
-    font-family: "Sixtyfour Convergence", sans-serif;
+    font-family: "Sixtyfour Convergence", sans-serif; !important;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
