@@ -136,6 +136,11 @@ function init() {
     const rectangleGeometry = new THREE.BoxGeometry(4, 5, 1);
     const webpageTexture = new THREE.CanvasTexture(webpageCanvas);
 
+    // Disable mipmap generation for the CanvasTexture
+    webpageTexture.generateMipmaps = false;
+    webpageTexture.minFilter = THREE.LinearFilter; // Use appropriate filtering
+    webpageTexture.magFilter = THREE.LinearFilter; // Use appropriate filtering
+
     const materials = [
         new THREE.MeshBasicMaterial({ map: webpageTexture }), 
         new THREE.MeshBasicMaterial({ map: webpageTexture }),
@@ -221,11 +226,25 @@ window.addEventListener('scroll', () => {
         if (scrollPosition > returnThreshold) {
             const scrollProgress = (scrollPosition - returnThreshold) / 1000;
 
-            rectangle.position.z = 5 - Math.pow(1 - scrollProgress, 2) * (isMobile ? 5 : 10.5);
+            rectangle.position.z = 5 - Math.pow(1 - scrollProgress, 2) * (isMobile ? 8 : 10.5);
             rectangle.position.x = 5.65 * (1 - scrollProgress);
             rectangle.position.y = 5 * (1 - scrollProgress);
+
+            rectangle.rotation.y = 0.5 * (1 - scrollProgress);
+            rectangle.rotation.x = 0.75 * (1 - scrollProgress);
+            rectangle.rotation.z = 0.65 * (1 - scrollProgress);
+
+            hovering = false;
         }
     }
+});
+
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    updateRectanglePosition();
 });
 
 init();
