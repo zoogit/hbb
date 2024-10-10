@@ -23,7 +23,7 @@ webpageCanvas.height = 512;
 
 // Render an iframe or webpage content onto the canvas
 const iframe = document.createElement('iframe');
-iframe.src = 'https://handbrewedbeer.com'; // URL of the webpage you want to display
+iframe.src = 'https://nimamaghame.com/website_fa300e87/sample-page/'; // URL of the webpage you want to display
 iframe.style.width = '512px';
 iframe.style.height = '512px';
 iframe.style.border = 'none';
@@ -33,7 +33,7 @@ iframe.onload = () => {
 
 // Listen for the message from the iframe (postMessage)
 window.addEventListener('message', (event) => {
-    if (event.origin !== 'https://handbrewedbeer.com') {
+    if (event.origin !== 'https://nimamaghame.com/website_fa300e87/sample-page/') {
         // Ignore messages from other origins
         return;
     }
