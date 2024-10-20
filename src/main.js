@@ -53,8 +53,8 @@ function init() {
     scene = new THREE.Scene();
 
     // Use a cubemap for the background for a more immersive night sky effect
-    const cubeTextureLoader = new THREE.CubeTextureLoader();
-    const texture = cubeTextureLoader.load([
+   // const cubeTextureLoader = new THREE.CubeTextureLoader();
+   // const texture = cubeTextureLoader.load([
         'nightsky3.jpg', // positive x (right)
         'nightsky3.jpg', // negative x (left)
         'nightsky3.jpg', // positive y (top)
