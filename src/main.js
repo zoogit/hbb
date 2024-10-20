@@ -16,7 +16,7 @@ manager.onProgress = (item, loaded, total) => {
 };
 
 const gltfLoader = new THREE.GLTFLoader(manager);
-gltfLoader.load('path/to/model.gltf', (gltf) => {
+gltfLoader.load('models/hbb6.glb', (gltf) => {
     scene.add(gltf.scene);
     document.getElementById('loading').style.display = 'none'; // Hide loading div after load
 }, undefined, (error) => console.error(error));
@@ -42,11 +42,37 @@ const rectangleMaterial = new THREE.MeshBasicMaterial({ map: rectangleTexture })
 const rectangleMesh = new THREE.Mesh(rectangleGeometry, rectangleMaterial);
 scene.add(rectangleMesh);
 
-// Update iframe texture at controlled intervals
+// Handle iframe loading issues with fallback to API content
+async function loadBackupContent() {
+    try {
+        const response = await fetch('https://www.handbrewedbeer.com/'); // Replace with your API URL
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+        const data = await response.json();
+        rectangleContext.clearRect(0, 0, rectangleCanvas.width, rectangleCanvas.height);
+        rectangleContext.fillStyle = 'white';
+        rectangleContext.font = '20px Arial';
+        rectangleContext.fillText(data.title, 50, 50);
+        rectangleContext.fillText(data.description, 50, 100);
+        rectangleTexture.needsUpdate = true;
+    } catch (error) {
+        console.error('Failed to load backup content:', error);
+    }
+}
+
+// Update iframe texture or fall back to API if blocked
 function updateIframeTexture() {
-    rectangleContext.clearRect(0, 0, rectangleCanvas.width, rectangleCanvas.height);
-    // Draw content from iframe or any other dynamic elements here
-    rectangleTexture.needsUpdate = true;
+    try {
+        // Attempt to draw iframe content (replace with your specific logic)
+        rectangleContext.clearRect(0, 0, rectangleCanvas.width, rectangleCanvas.height);
+        rectangleContext.fillStyle = 'white';
+        rectangleContext.font = '30px Arial';
+        rectangleContext.fillText('Iframe Content Here', 50, 50);
+        rectangleTexture.needsUpdate = true;
+    } catch (error) {
+        console.warn('Iframe content blocked or failed, loading backup content...');
+        loadBackupContent();
+    }
     setTimeout(updateIframeTexture, 100); // Adjust interval as needed
 }
 updateIframeTexture();
