@@ -1,7 +1,7 @@
 // Import Three.js
 import * as THREE from 'three';
 // Import GLTFLoader from examples
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/loaders/GLTFLoader.js';
 
 // Set up basic scene components
 const scene = new THREE.Scene();
