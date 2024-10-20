@@ -45,7 +45,7 @@ scene.add(rectangleMesh);
 // Handle iframe loading issues with fallback to API content
 async function loadBackupContent() {
     try {
-        const response = await fetch('https://www.handbrewedbeer.com/'); // Replace with your API URL
+        const response = await fetch('https://nimamaghame.com/website_fa300e87/sample-page/'); // Replace with your API URL
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
         const data = await response.json();
