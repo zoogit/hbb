@@ -16,7 +16,7 @@ manager.onProgress = (item, loaded, total) => {
     loadingDiv.textContent = `Loading ${loaded}/${total}`;
 };
 
-const loader = new GLTFLoader(manager); // Use the loader here
+const loader = new GLTFLoader(manager);
 loader.load('https://zoogit.github.io/hbb/models/hbb6.glb', (gltf) => {
     scene.add(gltf.scene);
     document.getElementById('loading').style.display = 'none'; // Hide loading div after load
@@ -33,14 +33,9 @@ scene.add(ambientLight);
 
 // Rectangle mesh with iframe texture
 const rectangleGeometry = new THREE.PlaneGeometry(5, 3);
-const rectangleCanvas = document.createElement('canvas');
-rectangleCanvas.width = 1024;
-rectangleCanvas.height = 512;
-const rectangleContext = rectangleCanvas.getContext('2d');
-const rectangleTexture = new THREE.CanvasTexture(rectangleCanvas);
-
-const rectangleMaterial = new THREE.MeshBasicMaterial({ map: rectangleTexture });
+const rectangleMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Use color first
 const rectangleMesh = new THREE.Mesh(rectangleGeometry, rectangleMaterial);
+rectangleMesh.position.set(0, 0, -1); // Adjust position slightly in front of the camera
 scene.add(rectangleMesh);
 
 // Handle iframe loading issues with fallback to API content
@@ -61,10 +56,18 @@ async function loadBackupContent() {
     }
 }
 
+// Create a texture for the rectangle
+const rectangleCanvas = document.createElement('canvas');
+rectangleCanvas.width = 1024;
+rectangleCanvas.height = 512;
+const rectangleContext = rectangleCanvas.getContext('2d');
+const rectangleTexture = new THREE.CanvasTexture(rectangleCanvas);
+rectangleMaterial.map = rectangleTexture;
+
 // Update iframe texture or fall back to API if blocked
 function updateIframeTexture() {
     try {
-        // Attempt to draw iframe content (replace with your specific logic)
+        // Attempt to draw iframe content
         rectangleContext.clearRect(0, 0, rectangleCanvas.width, rectangleCanvas.height);
         rectangleContext.fillStyle = 'white';
         rectangleContext.font = '30px Arial';
@@ -91,7 +94,6 @@ window.addEventListener('resize', debounce(() => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
-    updateRectanglePosition(); // Ensure rectangle stays aligned on resize
 }, 300));
 
 // Position camera
