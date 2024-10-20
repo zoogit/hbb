@@ -55,13 +55,13 @@ function init() {
     // Use a cubemap for the background for a more immersive night sky effect
    // const cubeTextureLoader = new THREE.CubeTextureLoader();
    // const texture = cubeTextureLoader.load([
-        'nightsky3.jpg', // positive x (right)
-        'nightsky3.jpg', // negative x (left)
-        'nightsky3.jpg', // positive y (top)
-        'nightsky3.jpg', // negative y (bottom)
-        'nightsky3.jpg', // positive z (front)
-        'nightsky3.jpg'  // negative z (back)
-    ], () => {
+    //    'nightsky3.jpg', // positive x (right)
+    //    'nightsky3.jpg', // negative x (left)
+    //    'nightsky3.jpg', // positive y (top)
+    //    'nightsky3.jpg', // negative y (bottom)
+    //    'nightsky3.jpg', // positive z (front)
+     //   'nightsky3.jpg'  // negative z (back)
+   // ], () => {
         console.log('Cubemap loaded successfully');
     }, undefined, (error) => {
         console.error('An error occurred while loading the cubemap:', error);
