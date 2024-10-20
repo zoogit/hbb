@@ -18,6 +18,7 @@ manager.onProgress = (item, loaded, total) => {
 
 const loader = new GLTFLoader(manager);
 loader.load('https://zoogit.github.io/hbb/models/hbb6.glb', (gltf) => {
+    console.log(gltf); // Log the loaded model
     scene.add(gltf.scene);
     document.getElementById('loading').style.display = 'none'; // Hide loading div after load
 }, undefined, (error) => console.error('Error loading model:', error));
@@ -33,28 +34,10 @@ scene.add(ambientLight);
 
 // Rectangle mesh with iframe texture
 const rectangleGeometry = new THREE.PlaneGeometry(5, 3);
-const rectangleMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Use color first
+const rectangleMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 }); // Use color first for visibility
 const rectangleMesh = new THREE.Mesh(rectangleGeometry, rectangleMaterial);
 rectangleMesh.position.set(0, 0, -1); // Adjust position slightly in front of the camera
 scene.add(rectangleMesh);
-
-// Handle iframe loading issues with fallback to API content
-async function loadBackupContent() {
-    try {
-        const response = await fetch('https://nimamaghame.com/website_fa300e87/sample-page/'); // Replace with your API URL
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-
-        const data = await response.json();
-        rectangleContext.clearRect(0, 0, rectangleCanvas.width, rectangleCanvas.height);
-        rectangleContext.fillStyle = 'white';
-        rectangleContext.font = '20px Arial';
-        rectangleContext.fillText(data.title, 50, 50);
-        rectangleContext.fillText(data.description, 50, 100);
-        rectangleTexture.needsUpdate = true;
-    } catch (error) {
-        console.error('Failed to load backup content:', error);
-    }
-}
 
 // Create a texture for the rectangle
 const rectangleCanvas = document.createElement('canvas');
@@ -97,7 +80,7 @@ window.addEventListener('resize', debounce(() => {
 }, 300));
 
 // Position camera
-camera.position.z = 5;
+camera.position.z = 10; // Move the camera further away for visibility
 
 // Animate the scene
 function animate() {
