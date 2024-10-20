@@ -1,5 +1,7 @@
 // Import Three.js
 import * as THREE from 'three';
+// Import GLTFLoader from examples
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 // Set up basic scene components
 const scene = new THREE.Scene();
@@ -15,9 +17,7 @@ manager.onProgress = (item, loaded, total) => {
     loadingDiv.textContent = `Loading ${loaded}/${total}`;
 };
 
-
-const gltfLoader = new THREE.GLTFLoader(manager);
-
+const gltfLoader = new GLTFLoader(manager);
 gltfLoader.load('https://zoogit.github.io/hbb/models/hbb6.glb', (gltf) => {
     scene.add(gltf.scene);
     document.getElementById('loading').style.display = 'none'; // Hide loading div after load
