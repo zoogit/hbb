@@ -15,8 +15,8 @@ manager.onProgress = (item, loaded, total) => {
     loadingDiv.textContent = `Loading ${loaded}/${total}`;
 };
 
-const gltfLoader = new GLTFLoader(manager);
-gltfLoader.load('https://zoogit.github.io/hbb/models/hbb6.glb', (gltf) => {
+ const loader = new GLTFLoader();
+    loader.load('https://zoogit.github.io/hbb/models/hbb6.glb', function(gltf) {
     scene.add(gltf.scene);
     document.getElementById('loading').style.display = 'none'; // Hide loading div after load
 }, undefined, (error) => console.error(error));
